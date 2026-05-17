@@ -1,27 +1,45 @@
-import Link from "next/link";
+export const dynamic = "force-dynamic";
 
-export default function Home() {
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
+import { get } from "@/lib/db";
+import { getAppointmentsByDate } from "@/lib/appointments";
+import { t } from "@/lib/i18n";
+import { TodaySchedule } from "@/components/TodaySchedule";
+
+function todayStr() {
+  return new Date().toISOString().split("T")[0];
+}
+
+export default async function Home() {
+  const session = await auth.api.getSession({ headers: await headers() });
+  if (!session) redirect("/login");
+
+  const user = get<{ role: string }>("SELECT role FROM user WHERE id = ?", [
+    session.user.id,
+  ]);
+  const isAdmin = user?.role === "admin";
+  const today = todayStr();
+  const appointments = getAppointmentsByDate(today);
+
   return (
-    <div className="flex flex-1 flex-col items-center justify-center px-4 py-32">
-      <h1 className="text-4xl font-bold tracking-tight">
-        Your notes, simple.
-      </h1>
-      <p className="mt-4 max-w-md text-center text-lg text-zinc-600 dark:text-zinc-400">
-        Create, edit, and share rich-text notes. No clutter, no fuss.
+    <div className="mx-auto max-w-4xl px-4 py-8">
+      <h1 className="text-2xl font-semibold">{t.todaySchedule}</h1>
+      <p className="mt-1 text-sm text-zinc-500">
+        {new Date().toLocaleDateString("pt-BR", {
+          weekday: "long",
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        })}
       </p>
-      <div className="mt-8 flex gap-4">
-        <Link
-          href="/signup"
-          className="rounded bg-zinc-900 px-5 py-2.5 text-sm font-medium text-white hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200"
-        >
-          Get started
-        </Link>
-        <Link
-          href="/login"
-          className="rounded border border-zinc-300 px-5 py-2.5 text-sm font-medium hover:bg-zinc-50 dark:border-zinc-700 dark:hover:bg-zinc-900"
-        >
-          Log in
-        </Link>
+      <div className="mt-6">
+        <TodaySchedule
+          appointments={appointments}
+          isAdmin={isAdmin}
+          userId={session.user.id}
+        />
       </div>
     </div>
   );

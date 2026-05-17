@@ -1,0 +1,111 @@
+export const t = {
+  appName: "Studio",
+
+  // Auth
+  login: "Entrar",
+  loggingIn: "Entrando...",
+  signup: "Criar conta",
+  creatingAccount: "Criando conta...",
+  logout: "Sair",
+  email: "Email",
+  password: "Senha",
+  name: "Nome",
+  noAccount: "Não tem uma conta?",
+  hasAccount: "Já tem uma conta?",
+
+  // Navigation
+  dashboard: "Painel",
+  profile: "Perfil",
+  agenda: "Agenda",
+  admin: "Admin",
+
+  // Notes
+  yourNotes: "Suas anotações",
+  newNote: "Nova anotação",
+  creating: "Criando...",
+  noNotesYet: "Nenhuma anotação ainda. Crie a primeira!",
+  untitledNote: "Anotação sem título",
+  public: "Público",
+  private: "Privado",
+  copyLink: "Copiar link",
+  saving: "Salvando...",
+  delete: "Excluir",
+  deleteConfirm: "Excluir?",
+  yes: "Sim",
+  no: "Não",
+  list: "Lista",
+
+  // Profile
+  address: "Endereço",
+  city: "Cidade",
+  telephone: "Telefone",
+  mobile: "Celular",
+  age: "Idade",
+  gender: "Gênero",
+  genderOptions: {
+    none: "Prefiro não dizer",
+    male: "Masculino",
+    female: "Feminino",
+    nonBinary: "Não-binário",
+    other: "Outro",
+  },
+  classCategory: "Tipo de aula",
+  selectCategory: "Selecione o tipo",
+  group: "Grupo",
+  individual: "Individual",
+  classesPerWeek: "Aulas por semana",
+  perWeek1: "1x por semana",
+  perWeek2: "2x por semana",
+  perWeek3: "3x por semana",
+  plan: "Plano",
+  selectPlan: "Selecione um plano",
+  monthly: "Mensal",
+  semester: "Semestral",
+  yearly: "Anual",
+  save: "Salvar",
+  saved: "Salvo",
+
+  // Agenda
+  classSchedule: "Agenda de aulas",
+  todaySchedule: "Aulas de hoje",
+  prev: "Anterior",
+  next: "Próxima",
+  today: "Hoje",
+  loading: "Carregando...",
+  selectUserToBook: "Selecione um aluno...",
+  noCategory: "sem tipo",
+  groupMax: (n: number) => `Grupo (máx ${n})`,
+  individualOnly: "Individual (1 apenas)",
+  setCategoryWarning:
+    "Defina seu tipo de aula (Grupo ou Individual) no seu",
+  profileLink: "perfil",
+  beforeBooking: "antes de agendar aulas.",
+  noClasses: "Nenhuma aula agendada para hoje.",
+
+  // Admin
+  manageUsers: "Gerenciar usuários, perfis e agendamentos.",
+  users: "Usuários",
+  createUser: "Criar usuário",
+  edit: "Editar",
+  backToAdmin: "Voltar ao admin",
+  deleteUser: "Excluir usuário",
+  deleting: "Excluindo...",
+  deleteUserConfirm: (name: string) =>
+    `Excluir usuário "${name}"? Esta ação não pode ser desfeita.`,
+  role: "Função",
+  roleUser: "Usuário",
+  roleAdmin: "Admin",
+  saveChanges: "Salvar alterações",
+  joined: "Cadastro",
+  classesWk: "Aulas/sem",
+  cancel: "Cancelar",
+  failedToCreateUser: "Falha ao criar usuário",
+  nameEmailPasswordRequired: "Nome, email e senha são obrigatórios",
+  userAlreadyExists: "Já existe um usuário com este email",
+
+  // Days
+  days: ["Seg", "Ter", "Qua", "Qui", "Sex"],
+
+  // Landing
+  welcomeTitle: "Agenda do dia",
+} as const;

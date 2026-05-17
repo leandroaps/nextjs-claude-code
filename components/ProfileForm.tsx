@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { phoneMask } from "@/lib/masks";
+import { t } from "@/lib/i18n";
 
 type ProfileData = {
   address: string;
@@ -56,161 +57,70 @@ export function ProfileForm({
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-1">
-          <label htmlFor="address" className="text-sm font-medium">
-            Address
-          </label>
-          <input
-            id="address"
-            type="text"
-            value={form.address}
-            onChange={(e) => update("address", e.target.value)}
-            className={inputClass}
-          />
+          <label htmlFor="address" className="text-sm font-medium">{t.address}</label>
+          <input id="address" type="text" value={form.address} onChange={(e) => update("address", e.target.value)} className={inputClass} />
         </div>
-
         <div className="space-y-1">
-          <label htmlFor="city" className="text-sm font-medium">
-            City
-          </label>
-          <input
-            id="city"
-            type="text"
-            value={form.city}
-            onChange={(e) => update("city", e.target.value)}
-            className={inputClass}
-          />
+          <label htmlFor="city" className="text-sm font-medium">{t.city}</label>
+          <input id="city" type="text" value={form.city} onChange={(e) => update("city", e.target.value)} className={inputClass} />
         </div>
-
         <div className="space-y-1">
-          <label htmlFor="telephone" className="text-sm font-medium">
-            Telephone
-          </label>
-          <input
-            id="telephone"
-            type="tel"
-            value={form.telephone}
-            onChange={(e) => update("telephone", phoneMask(e.target.value))}
-            placeholder="(99) 9999-9999"
-            className={inputClass}
-          />
+          <label htmlFor="telephone" className="text-sm font-medium">{t.telephone}</label>
+          <input id="telephone" type="tel" value={form.telephone} onChange={(e) => update("telephone", phoneMask(e.target.value))} placeholder="(99) 9999-9999" className={inputClass} />
         </div>
-
         <div className="space-y-1">
-          <label htmlFor="mobile" className="text-sm font-medium">
-            Mobile
-          </label>
-          <input
-            id="mobile"
-            type="tel"
-            value={form.mobile}
-            onChange={(e) => update("mobile", phoneMask(e.target.value))}
-            placeholder="(99) 9999-9999"
-            className={inputClass}
-          />
+          <label htmlFor="mobile" className="text-sm font-medium">{t.mobile}</label>
+          <input id="mobile" type="tel" value={form.mobile} onChange={(e) => update("mobile", phoneMask(e.target.value))} placeholder="(99) 9999-9999" className={inputClass} />
         </div>
-
         <div className="space-y-1">
-          <label htmlFor="age" className="text-sm font-medium">
-            Age
-          </label>
-          <input
-            id="age"
-            type="number"
-            min={0}
-            max={150}
-            value={form.age ?? ""}
-            onChange={(e) =>
-              update("age", e.target.value ? Number(e.target.value) : null)
-            }
-            className={inputClass}
-          />
+          <label htmlFor="age" className="text-sm font-medium">{t.age}</label>
+          <input id="age" type="number" min={0} max={150} value={form.age ?? ""} onChange={(e) => update("age", e.target.value ? Number(e.target.value) : null)} className={inputClass} />
         </div>
-
         <div className="space-y-1">
-          <label htmlFor="gender" className="text-sm font-medium">
-            Gender
-          </label>
-          <select
-            id="gender"
-            value={form.gender}
-            onChange={(e) => update("gender", e.target.value)}
-            className={inputClass}
-          >
-            <option value="">Prefer not to say</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="non-binary">Non-binary</option>
-            <option value="other">Other</option>
+          <label htmlFor="gender" className="text-sm font-medium">{t.gender}</label>
+          <select id="gender" value={form.gender} onChange={(e) => update("gender", e.target.value)} className={inputClass}>
+            <option value="">{t.genderOptions.none}</option>
+            <option value="male">{t.genderOptions.male}</option>
+            <option value="female">{t.genderOptions.female}</option>
+            <option value="non-binary">{t.genderOptions.nonBinary}</option>
+            <option value="other">{t.genderOptions.other}</option>
           </select>
         </div>
-
         {!isAdmin && (
           <>
             <div className="space-y-1">
-              <label htmlFor="category" className="text-sm font-medium">
-                Class category
-              </label>
-              <select
-                id="category"
-                value={form.category}
-                onChange={(e) => update("category", e.target.value)}
-                className={inputClass}
-              >
-                <option value="">Select a category</option>
-                <option value="group">Group</option>
-                <option value="individual">Individual</option>
+              <label htmlFor="category" className="text-sm font-medium">{t.classCategory}</label>
+              <select id="category" value={form.category} onChange={(e) => update("category", e.target.value)} className={inputClass}>
+                <option value="">{t.selectCategory}</option>
+                <option value="group">{t.group}</option>
+                <option value="individual">{t.individual}</option>
               </select>
             </div>
-
             <div className="space-y-1">
-              <label htmlFor="weekly_appointments" className="text-sm font-medium">
-                Classes per week
-              </label>
-              <select
-                id="weekly_appointments"
-                value={form.weekly_appointments}
-                onChange={(e) => update("weekly_appointments", Number(e.target.value))}
-                className={inputClass}
-              >
-                <option value={1}>1x per week</option>
-                <option value={2}>2x per week</option>
-                <option value={3}>3x per week</option>
+              <label htmlFor="weekly_appointments" className="text-sm font-medium">{t.classesPerWeek}</label>
+              <select id="weekly_appointments" value={form.weekly_appointments} onChange={(e) => update("weekly_appointments", Number(e.target.value))} className={inputClass}>
+                <option value={1}>{t.perWeek1}</option>
+                <option value={2}>{t.perWeek2}</option>
+                <option value={3}>{t.perWeek3}</option>
               </select>
             </div>
-
             <div className="space-y-1">
-              <label htmlFor="plan_type" className="text-sm font-medium">
-                Plan
-              </label>
-              <select
-                id="plan_type"
-                value={form.plan_type}
-                onChange={(e) => update("plan_type", e.target.value)}
-                className={inputClass}
-              >
-                <option value="">Select a plan</option>
-                <option value="monthly">Monthly</option>
-                <option value="semester">Semester</option>
-                <option value="yearly">Yearly</option>
+              <label htmlFor="plan_type" className="text-sm font-medium">{t.plan}</label>
+              <select id="plan_type" value={form.plan_type} onChange={(e) => update("plan_type", e.target.value)} className={inputClass}>
+                <option value="">{t.selectPlan}</option>
+                <option value="monthly">{t.monthly}</option>
+                <option value="semester">{t.semester}</option>
+                <option value="yearly">{t.yearly}</option>
               </select>
             </div>
           </>
         )}
       </div>
-
       <div className="flex items-center gap-3">
-        <button
-          type="submit"
-          disabled={saving}
-          className="rounded bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800 disabled:opacity-50 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200"
-        >
-          {saving ? "Saving..." : "Save"}
+        <button type="submit" disabled={saving} className="rounded bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800 disabled:opacity-50 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200">
+          {saving ? t.saving : t.save}
         </button>
-        {saved && (
-          <span className="text-sm text-green-600 dark:text-green-400">
-            Saved
-          </span>
-        )}
+        {saved && <span className="text-sm text-green-600 dark:text-green-400">{t.saved}</span>}
       </div>
     </form>
   );

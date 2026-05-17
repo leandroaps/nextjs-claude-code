@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import { t } from "@/lib/i18n";
 
 export function Header() {
   const { data: session, isPending } = authClient.useSession();
@@ -19,7 +20,7 @@ export function Header() {
     <header className="border-b border-zinc-200 dark:border-zinc-800">
       <div className="mx-auto flex h-14 max-w-4xl items-center justify-between px-4">
         <Link href="/" className="text-lg font-semibold">
-          Notes
+          {t.appName}
         </Link>
         <nav className="flex items-center gap-4">
           {isPending ? null : session ? (
@@ -28,26 +29,26 @@ export function Header() {
                 href="/dashboard"
                 className="text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
               >
-                Dashboard
+                {t.dashboard}
               </Link>
               <Link
                 href="/profile"
                 className="text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
               >
-                Profile
+                {t.profile}
               </Link>
               <Link
                 href="/agenda"
                 className="text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
               >
-                Agenda
+                {t.agenda}
               </Link>
               {isAdmin && (
                 <Link
                   href="/admin"
                   className="text-sm text-purple-600 hover:text-purple-800 dark:text-purple-400 dark:hover:text-purple-200"
                 >
-                  Admin
+                  {t.admin}
                 </Link>
               )}
               <button
@@ -55,7 +56,7 @@ export function Header() {
                 onClick={handleLogout}
                 className="text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
               >
-                Log out
+                {t.logout}
               </button>
             </>
           ) : (
@@ -64,13 +65,13 @@ export function Header() {
                 href="/login"
                 className="text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
               >
-                Log in
+                {t.login}
               </Link>
               <Link
                 href="/signup"
                 className="rounded bg-zinc-900 px-3 py-1.5 text-sm font-medium text-white hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200"
               >
-                Sign up
+                {t.signup}
               </Link>
             </>
           )}

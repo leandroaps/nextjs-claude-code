@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { getProfile } from "@/lib/profile";
 import { get } from "@/lib/db";
 import { AgendaView } from "@/components/AgendaView";
+import { t } from "@/lib/i18n";
 
 export default async function AgendaPage() {
   const session = await auth.api.getSession({ headers: await headers() });
@@ -20,14 +21,14 @@ export default async function AgendaPage() {
   if (!isAdmin && !profile?.category) {
     return (
       <div className="mx-auto max-w-5xl px-4 py-8">
-        <h1 className="mb-6 text-2xl font-semibold">Class schedule</h1>
+        <h1 className="mb-6 text-2xl font-semibold">{t.classSchedule}</h1>
         <div className="rounded-lg border border-amber-200 bg-amber-50 p-4 dark:border-amber-800 dark:bg-amber-950">
           <p className="text-sm text-amber-800 dark:text-amber-200">
-            Please set your class category (Group or Individual) in your{" "}
+            {t.setCategoryWarning}{" "}
             <a href="/profile" className="font-medium underline">
-              profile
+              {t.profileLink}
             </a>{" "}
-            before booking classes.
+            {t.beforeBooking}
           </p>
         </div>
       </div>
@@ -36,7 +37,7 @@ export default async function AgendaPage() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-8">
-      <h1 className="mb-6 text-2xl font-semibold">Class schedule</h1>
+      <h1 className="mb-6 text-2xl font-semibold">{t.classSchedule}</h1>
       <AgendaView
         userId={session.user.id}
         category={profile?.category ?? ""}

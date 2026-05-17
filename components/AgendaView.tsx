@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { t } from "@/lib/i18n";
 
 type Appointment = {
   id: string;
@@ -19,7 +20,7 @@ type UserOption = {
 
 const SLOTS = Array.from({ length: 13 }, (_, i) => 7 + i);
 const MAX_GROUP = 3;
-const DAY_LABELS = ["Mon", "Tue", "Wed", "Thu", "Fri"];
+const DAY_LABELS = t.days;
 
 function formatHour(hour: number) {
   return `${hour.toString().padStart(2, "0")}:00`;
@@ -44,7 +45,7 @@ function addDays(d: Date, n: number): Date {
 }
 
 function formatShortDate(d: Date): string {
-  return d.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+  return d.toLocaleDateString("pt-BR", { month: "short", day: "numeric" });
 }
 
 export function AgendaView({
@@ -85,8 +86,6 @@ export function AgendaView({
     abortRef.current?.abort();
     const controller = new AbortController();
     abortRef.current = controller;
-    setLoading(true);
-    setError("");
 
     fetch(`/api/appointments?from=${from}&to=${to}`, {
       signal: controller.signal,
@@ -156,21 +155,21 @@ export function AgendaView({
           onClick={() => changeWeek(-1)}
           className="rounded border border-zinc-300 px-3 py-1.5 text-sm hover:bg-zinc-50 dark:border-zinc-700 dark:hover:bg-zinc-900"
         >
-          &larr; Prev
+          &larr; {t.prev}
         </button>
         <button
           type="button"
           onClick={goToday}
           className="rounded border border-zinc-300 px-3 py-1.5 text-sm hover:bg-zinc-50 dark:border-zinc-700 dark:hover:bg-zinc-900"
         >
-          Today
+          {t.today}
         </button>
         <button
           type="button"
           onClick={() => changeWeek(1)}
           className="rounded border border-zinc-300 px-3 py-1.5 text-sm hover:bg-zinc-50 dark:border-zinc-700 dark:hover:bg-zinc-900"
         >
-          Next &rarr;
+          {t.next} &rarr;
         </button>
 
         {isAdmin && (
@@ -179,10 +178,10 @@ export function AgendaView({
             onChange={(e) => setSelectedUserId(e.target.value)}
             className="ml-auto rounded border border-zinc-300 px-3 py-1.5 text-sm dark:border-zinc-700 dark:bg-zinc-900"
           >
-            <option value="">Select user to book...</option>
+            <option value="">{t.selectUserToBook}</option>
             {users.map((u) => (
               <option key={u.id} value={u.id}>
-                {u.name} ({u.category || "no category"})
+                {u.name} ({u.category || t.noCategory})
               </option>
             ))}
           </select>
@@ -207,7 +206,7 @@ export function AgendaView({
       )}
 
       {loading ? (
-        <p className="py-8 text-center text-zinc-500">Loading...</p>
+        <p className="py-8 text-center text-zinc-500">{t.loading}</p>
       ) : (
         <div className="overflow-x-auto rounded-lg border border-zinc-200 dark:border-zinc-800">
           <table className="w-full border-collapse text-sm">
@@ -284,11 +283,11 @@ export function AgendaView({
       <div className="mt-4 flex gap-4 text-xs text-zinc-500">
         <span className="flex items-center gap-1">
           <span className="inline-block h-3 w-3 rounded-sm bg-blue-100 dark:bg-blue-900" />
-          Group (max {MAX_GROUP})
+          {t.groupMax(MAX_GROUP)}
         </span>
         <span className="flex items-center gap-1">
           <span className="inline-block h-3 w-3 rounded-sm bg-purple-100 dark:bg-purple-900" />
-          Individual (1 only)
+          {t.individualOnly}
         </span>
       </div>
     </div>
@@ -296,8 +295,6 @@ export function AgendaView({
 }
 
 function SlotCell({
-  dateStr,
-  hour,
   isToday,
   userId,
   bookingCategory,
@@ -307,8 +304,6 @@ function SlotCell({
   onBook,
   onCancel,
 }: {
-  dateStr: string;
-  hour: number;
   isToday: boolean;
   userId: string;
   bookingCategory: string;
@@ -385,7 +380,7 @@ function SlotCell({
                   type="button"
                   onClick={() => onCancel(a.id)}
                   className="ml-1 shrink-0 text-red-500 hover:text-red-700"
-                  title="Cancel"
+                  title={t.cancel}
                 >
                   &times;
                 </button>

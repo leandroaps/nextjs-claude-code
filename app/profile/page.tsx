@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { getProfile } from "@/lib/profile";
 import { get } from "@/lib/db";
 import { ProfileForm } from "@/components/ProfileForm";
+import { t } from "@/lib/i18n";
 
 export default async function ProfilePage() {
   const session = await auth.api.getSession({ headers: await headers() });
@@ -19,11 +20,11 @@ export default async function ProfilePage() {
 
   return (
     <div className="mx-auto max-w-xl px-4 py-8">
-      <h1 className="mb-6 text-2xl font-semibold">Profile</h1>
+      <h1 className="mb-6 text-2xl font-semibold">{t.profile}</h1>
       <div className="mb-6 rounded-lg border border-zinc-200 p-4 dark:border-zinc-800">
-        <p className="text-sm text-zinc-500">Name</p>
+        <p className="text-sm text-zinc-500">{t.name}</p>
         <p className="font-medium">{session.user.name}</p>
-        <p className="mt-2 text-sm text-zinc-500">Email</p>
+        <p className="mt-2 text-sm text-zinc-500">{t.email}</p>
         <p className="font-medium">{session.user.email}</p>
       </div>
       <ProfileForm

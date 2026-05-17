@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { t } from "@/lib/i18n";
 
 type NoteItem = {
   id: string;
@@ -13,7 +14,7 @@ export function NoteList({ notes }: { notes: NoteItem[] }) {
   if (notes.length === 0) {
     return (
       <p className="py-12 text-center text-zinc-500">
-        No notes yet. Create your first note!
+        {t.noNotesYet}
       </p>
     );
   }
@@ -29,12 +30,12 @@ export function NoteList({ notes }: { notes: NoteItem[] }) {
             <div className="min-w-0 flex-1">
               <p className="truncate font-medium">{note.title}</p>
               <p className="text-sm text-zinc-500">
-                {new Date(note.updated_at + "Z").toLocaleDateString()}
+                {new Date(note.updated_at.replace(" ", "T") + "Z").toLocaleDateString("pt-BR")}
               </p>
             </div>
             {note.is_public === 1 && (
               <span className="ml-3 shrink-0 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700 dark:bg-green-900 dark:text-green-300">
-                Public
+                {t.public}
               </span>
             )}
           </Link>

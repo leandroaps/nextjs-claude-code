@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { t } from "@/lib/i18n";
 
 export function CreateNoteButton() {
   const router = useRouter();
@@ -29,7 +30,7 @@ export function CreateNoteButton() {
       disabled={loading}
       className="rounded bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800 disabled:opacity-50 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200"
     >
-      {loading ? "Creating..." : "New note"}
+      {loading ? t.creating : t.newNote}
     </button>
   );
 }

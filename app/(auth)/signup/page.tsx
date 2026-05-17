@@ -4,6 +4,7 @@ import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { t } from "@/lib/i18n";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -25,7 +26,7 @@ export default function SignupPage() {
     });
 
     if (error) {
-      setError(error.message ?? "Signup failed");
+      setError(error.message ?? "Falha ao criar conta");
       setLoading(false);
       return;
     }
@@ -39,7 +40,7 @@ export default function SignupPage() {
         onSubmit={handleSubmit}
         className="w-full max-w-sm space-y-4 rounded-lg border border-zinc-200 p-8 dark:border-zinc-800"
       >
-        <h1 className="text-2xl font-semibold">Sign up</h1>
+        <h1 className="text-2xl font-semibold">{t.signup}</h1>
 
         {error && (
           <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
@@ -47,7 +48,7 @@ export default function SignupPage() {
 
         <div className="space-y-1">
           <label htmlFor="name" className="text-sm font-medium">
-            Name
+            {t.name}
           </label>
           <input
             id="name"
@@ -61,7 +62,7 @@ export default function SignupPage() {
 
         <div className="space-y-1">
           <label htmlFor="email" className="text-sm font-medium">
-            Email
+            {t.email}
           </label>
           <input
             id="email"
@@ -75,7 +76,7 @@ export default function SignupPage() {
 
         <div className="space-y-1">
           <label htmlFor="password" className="text-sm font-medium">
-            Password
+            {t.password}
           </label>
           <input
             id="password"
@@ -93,16 +94,16 @@ export default function SignupPage() {
           disabled={loading}
           className="w-full rounded bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800 disabled:opacity-50 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200"
         >
-          {loading ? "Creating account..." : "Sign up"}
+          {loading ? t.creatingAccount : t.signup}
         </button>
 
         <p className="text-center text-sm text-zinc-600 dark:text-zinc-400">
-          Already have an account?{" "}
+          {t.hasAccount}{" "}
           <Link
             href="/login"
             className="font-medium text-zinc-900 dark:text-zinc-100"
           >
-            Log in
+            {t.login}
           </Link>
         </p>
       </form>

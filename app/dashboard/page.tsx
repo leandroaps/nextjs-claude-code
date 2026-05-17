@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { getNotesByUser } from "@/lib/notes";
 import { NoteList } from "@/components/NoteList";
 import { CreateNoteButton } from "@/components/CreateNoteButton";
+import { t } from "@/lib/i18n";
 
 export default async function DashboardPage() {
   const session = await auth.api.getSession({ headers: await headers() });
@@ -16,7 +17,7 @@ export default async function DashboardPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">Your notes</h1>
+        <h1 className="text-2xl font-semibold">{t.yourNotes}</h1>
         <CreateNoteButton />
       </div>
       <div className="mt-6">

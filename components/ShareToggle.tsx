@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { t } from "@/lib/i18n";
 
 type ShareToggleProps = {
   noteId: string;
@@ -55,7 +56,7 @@ export function ShareToggle({
         />
       </button>
       <span className="text-sm">
-        {isPublic ? "Public" : "Private"}
+        {isPublic ? t.public : t.private}
       </span>
       {publicUrl && (
         <button
@@ -63,7 +64,7 @@ export function ShareToggle({
           onClick={() => navigator.clipboard.writeText(publicUrl)}
           className="rounded bg-zinc-100 px-2 py-1 text-xs text-zinc-600 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700"
         >
-          Copy link
+          {t.copyLink}
         </button>
       )}
     </div>

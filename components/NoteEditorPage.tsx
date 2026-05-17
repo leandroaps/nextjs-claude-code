@@ -4,6 +4,7 @@ import { useState, useCallback, useRef } from "react";
 import { NoteEditor } from "./NoteEditor";
 import { ShareToggle } from "./ShareToggle";
 import { DeleteNoteButton } from "./DeleteNoteButton";
+import { t } from "@/lib/i18n";
 
 type NoteData = {
   id: string;
@@ -55,7 +56,7 @@ export function NoteEditorPage({ note }: { note: NoteData }) {
             publicSlug={note.publicSlug}
           />
           {saving && (
-            <span className="text-xs text-zinc-400">Saving...</span>
+            <span className="text-xs text-zinc-400">{t.saving}</span>
           )}
         </div>
         <DeleteNoteButton noteId={note.id} />
@@ -65,7 +66,7 @@ export function NoteEditorPage({ note }: { note: NoteData }) {
         type="text"
         value={title}
         onChange={handleTitleChange}
-        placeholder="Untitled note"
+        placeholder={t.untitledNote}
         className="mb-4 w-full border-none bg-transparent text-3xl font-bold outline-none placeholder:text-zinc-300 dark:placeholder:text-zinc-700"
       />
 
