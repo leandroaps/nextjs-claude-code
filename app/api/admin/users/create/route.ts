@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { requireAdmin, adminUpsertProfile } from "@/lib/admin";
-import { auth } from "@/lib/auth";
-import { run } from "@/lib/db";
+import { hashPassword } from "better-auth/crypto";
+import { run, get } from "@/lib/db";
+import { nanoid } from "nanoid";
 
 export async function POST(request: Request) {
   const session = await requireAdmin();
@@ -19,25 +20,23 @@ export async function POST(request: Request) {
     );
   }
 
-  let res;
-  try {
-    res = await auth.api.signUpEmail({
-      body: { name, email, password },
-    });
-  } catch (err) {
-    const message = err instanceof Error ? err.message : "Failed to create user";
-    return NextResponse.json({ error: message }, { status: 400 });
+  const existing = get<{ id: string }>("SELECT id FROM user WHERE email = ?", [email]);
+  if (existing) {
+    return NextResponse.json({ error: "A user with this email already exists" }, { status: 400 });
   }
 
-  if (!res || !res.user) {
-    return NextResponse.json({ error: "Failed to create user" }, { status: 400 });
-  }
+  const userId = nanoid(32);
+  const hashedPassword = await hashPassword(password);
 
-  const userId = res.user.id;
+  run(
+    `INSERT INTO user (id, name, email, role, emailVerified) VALUES (?, ?, ?, ?, 0)`,
+    [userId, name, email, role || "user"]
+  );
 
-  if (role && role !== "user") {
-    run("UPDATE user SET role = ? WHERE id = ?", [role, userId]);
-  }
+  run(
+    `INSERT INTO account (id, userId, accountId, providerId, password) VALUES (?, ?, ?, 'credential', ?)`,
+    [nanoid(32), userId, userId, hashedPassword]
+  );
 
   const hasProfileData = Object.values(profileFields).some(
     (v) => v !== "" && v !== null && v !== undefined
