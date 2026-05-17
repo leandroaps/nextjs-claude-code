@@ -47,8 +47,8 @@ export function NoteEditorPage({ note }: { note: NoteData }) {
   }
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8">
-      <div className="mb-4 flex items-center justify-between gap-4">
+    <div className="mx-auto max-w-3xl px-4 py-4 sm:py-8">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-3">
           <ShareToggle
             noteId={note.id}
@@ -67,7 +67,7 @@ export function NoteEditorPage({ note }: { note: NoteData }) {
         value={title}
         onChange={handleTitleChange}
         placeholder={t.untitledNote}
-        className="mb-4 w-full border-none bg-transparent text-3xl font-bold outline-none placeholder:text-zinc-300 dark:placeholder:text-zinc-700"
+        className="mb-4 w-full border-none bg-transparent text-2xl font-bold outline-none sm:text-3xl placeholder:text-zinc-300 dark:placeholder:text-zinc-700"
       />
 
       <NoteEditor

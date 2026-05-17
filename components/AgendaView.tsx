@@ -149,25 +149,25 @@ export function AgendaView({
 
   return (
     <div>
-      <div className="mb-4 flex flex-wrap items-center gap-3">
+      <div className="mb-4 flex flex-wrap items-center gap-2 sm:gap-3">
         <button
           type="button"
           onClick={() => changeWeek(-1)}
-          className="rounded border border-zinc-300 px-3 py-1.5 text-sm hover:bg-zinc-50 dark:border-zinc-700 dark:hover:bg-zinc-900"
+          className="rounded border border-zinc-300 px-2 py-1.5 text-xs sm:px-3 sm:text-sm hover:bg-zinc-50 dark:border-zinc-700 dark:hover:bg-zinc-900"
         >
           &larr; {t.prev}
         </button>
         <button
           type="button"
           onClick={goToday}
-          className="rounded border border-zinc-300 px-3 py-1.5 text-sm hover:bg-zinc-50 dark:border-zinc-700 dark:hover:bg-zinc-900"
+          className="rounded border border-zinc-300 px-2 py-1.5 text-xs sm:px-3 sm:text-sm hover:bg-zinc-50 dark:border-zinc-700 dark:hover:bg-zinc-900"
         >
           {t.today}
         </button>
         <button
           type="button"
           onClick={() => changeWeek(1)}
-          className="rounded border border-zinc-300 px-3 py-1.5 text-sm hover:bg-zinc-50 dark:border-zinc-700 dark:hover:bg-zinc-900"
+          className="rounded border border-zinc-300 px-2 py-1.5 text-xs sm:px-3 sm:text-sm hover:bg-zinc-50 dark:border-zinc-700 dark:hover:bg-zinc-900"
         >
           {t.next} &rarr;
         </button>
@@ -176,7 +176,7 @@ export function AgendaView({
           <select
             value={selectedUserId}
             onChange={(e) => setSelectedUserId(e.target.value)}
-            className="ml-auto rounded border border-zinc-300 px-3 py-1.5 text-sm dark:border-zinc-700 dark:bg-zinc-900"
+            className="w-full rounded border border-zinc-300 px-2 py-1.5 text-xs sm:ml-auto sm:w-auto sm:px-3 sm:text-sm dark:border-zinc-700 dark:bg-zinc-900"
           >
             <option value="">{t.selectUserToBook}</option>
             {users.map((u) => (
@@ -208,11 +208,12 @@ export function AgendaView({
       {loading ? (
         <p className="py-8 text-center text-zinc-500">{t.loading}</p>
       ) : (
-        <div className="overflow-x-auto rounded-lg border border-zinc-200 dark:border-zinc-800">
-          <table className="w-full border-collapse text-sm">
+        <div className="-mx-4 overflow-x-auto sm:mx-0">
+          <div className="min-w-[600px] sm:min-w-0">
+          <table className="w-full border-collapse text-xs sm:text-sm">
             <thead>
               <tr className="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900">
-                <th className="w-24 px-2 py-2 text-left font-medium text-zinc-500">
+                <th className="w-14 px-1 py-2 text-left font-medium text-zinc-500 sm:w-24 sm:px-2">
                   Time
                 </th>
                 {weekDays.map((day, i) => {
@@ -221,7 +222,7 @@ export function AgendaView({
                   return (
                     <th
                       key={i}
-                      className={`px-2 py-2 text-center font-medium ${
+                      className={`px-1 py-2 text-center font-medium sm:px-2 ${
                         isToday
                           ? "text-zinc-900 dark:text-zinc-100"
                           : "text-zinc-500"
@@ -248,7 +249,7 @@ export function AgendaView({
                   key={hour}
                   className="border-b border-zinc-100 dark:border-zinc-800/50"
                 >
-                  <td className="px-2 py-1.5 font-mono text-xs text-zinc-400">
+                  <td className="px-1 py-1 font-mono text-xs text-zinc-400 sm:px-2 sm:py-1.5">
                     {formatHour(hour)}
                   </td>
                   {weekDays.map((day, i) => {
@@ -257,8 +258,6 @@ export function AgendaView({
                     return (
                       <SlotCell
                         key={i}
-                        dateStr={dateStr}
-                        hour={hour}
                         isToday={isToday}
                         userId={userId}
                         bookingCategory={bookingCategory}
@@ -277,6 +276,7 @@ export function AgendaView({
               ))}
             </tbody>
           </table>
+          </div>
         </div>
       )}
 

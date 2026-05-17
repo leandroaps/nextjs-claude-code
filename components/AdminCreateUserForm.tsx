@@ -66,8 +66,8 @@ export function AdminCreateUserForm({ onClose }: { onClose: () => void }) {
     "w-full rounded border border-zinc-300 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-900";
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-      <div className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-lg border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-950">
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50 sm:items-center">
+      <div className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-t-lg border border-zinc-200 bg-white p-4 sm:rounded-lg sm:p-6 dark:border-zinc-800 dark:bg-zinc-950">
         <div className="mb-4 flex items-center justify-between">
           <h2 className="text-lg font-semibold">{t.createUser}</h2>
           <button type="button" onClick={onClose} className="text-sm text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300">
