@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Next.js + Bun starter tailored for rapid local development and small deployments.
 
-## Getting Started
+Quick overview
 
-First, run the development server:
+- **Stack:** Next.js (App Router) + TypeScript + Bun runtime (optional) + Tailwind CSS
+- **Runtime:** Built to run on Bun, also works on Node.js
+- **Package manager:** pnpm (recommended), npm/yarn supported
+
+Quick start
+
+1. Install dependencies (pnpm recommended):
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. Run the dev server (Bun recommended):
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# with bun
+bun run dev
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# or with pnpm / npm
+pnpm dev
+# or
+npm run dev
+```
 
-## Learn More
+Open <http://localhost:3000> in your browser.
 
-To learn more about Next.js, take a look at the following resources:
+Build & checks
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+# Build for production (Bun)
+bun run build
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Type check
+npx tsc --noEmit
 
-## Deploy on Vercel
+# Lint
+pnpm lint
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Project conventions & notes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Uses the Next.js App Router; pages live under `app/`.
+- Auth is provided by `better-auth` (see `app/api/auth/[...all]/route.ts`).
+- SQLite (via `bun:sqlite`) is used for local persistence; DB helper is in `lib/db.ts`.
+- TipTap is used for rich text note content (stored as JSON in the DB).
+- Auto-save and optimistic UI patterns are used in the note editor components.
+
+Where to look
+
+- App entry & routes: `app/`
+- Components: `components/`
+- Server helpers & DB: `lib/`
+- API routes: `app/api/`
+
+Helpful commands
+
+```bash
+# Start dev server
+bun run dev
+
+# Run lint
+pnpm lint
+
+# Type check
+npx tsc --noEmit
+```
+
+Support & learning
+
+See the repository `CLAUDE.md` for project-specific developer notes and conventions. For Next.js docs, visit <https://nextjs.org/docs>.
+
+Contributions
+
+PRs and issues are welcome — open a PR against `main` with a clear description of changes.
+
+License
+
+This project does not include a license file. Add one if you plan to publish or share the code.
